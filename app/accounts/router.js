@@ -9,7 +9,7 @@ const queries = require("./query");
 const Account = require("./index")
 
 
-router.get("/", (req, res) => {
+router.get("/", (req, res, next) => {
     queries.readAll()
     .then(accounts => res.json(accounts))
     .catch(error => next(error))
