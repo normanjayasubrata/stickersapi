@@ -19,6 +19,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(cors());
 
+//welcome route
+
+app.get("/", (req, res) => {
+  res.send("Welcome to Norman's Stickers API")
+})
+
 //use route
 app.use("/api/v1/stickers", stickerRouter);
 app.use("/api/v1/accounts", accountRouter);
