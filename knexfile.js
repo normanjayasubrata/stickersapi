@@ -3,7 +3,7 @@
 module.exports = {
   development: {
     client: "pg",
-    connection: "postgres://localhost/logostore",
+    connection: require("./secrets/config"),
     migrations: {
       directory: "./db/migrations",
     },
