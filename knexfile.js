@@ -3,7 +3,7 @@
 module.exports = {
   development: {
     client: "pg",
-    connection: require("./secrets/config"),
+    connection: require("./secrets/config") || {},
     migrations: {
       directory: "./db/migrations",
     },
