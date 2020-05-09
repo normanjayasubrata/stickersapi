@@ -3,7 +3,7 @@
 module.exports = {
   development: {
     client: "pg",
-    connection: process.env.DB_DEV_URL,
+    connection: require("./secrets/config"),
     migrations: {
       directory: "./db/migrations",
     },
