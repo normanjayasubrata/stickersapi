@@ -8,7 +8,6 @@ const queries = require("./query");
 
 //validation
 const validateId = (req, res, next) => {
-    console.log(req.params)
     if (!isNaN(req.params.id)) {
         next();
     } else {
@@ -25,9 +24,7 @@ router.get("/", passport.authenticate("jwt", {session: false}), (req, res, next)
 })
 
 router.get("/:id", validateId, passport.authenticate("jwt", {session: false}), (req, res, next) => {
-    // console.log(req.params)
-    // const {id} = req.params;
-    queries.read(req.params).then(result => {
+    queries.read(req.params).then(([result]) => {
         if (result) {
             res.json(result)
         } else {
@@ -41,7 +38,7 @@ router.post("/", passport.authenticate("jwt", {session: false}), (req, res, next
     const sticker = new Sticker(req.body)
     if (sticker.validate()) {
         queries.create(sticker)
-        .then(result => res.json(result))
+        .then(([result]) => res.json(result))
         .catch(error => next(error))
     } else {
         next(new Error("Sticker not Valid"))
@@ -53,7 +50,7 @@ router.put("/:id", validateId, passport.authenticate("jwt", {session: false}), (
     const {id} = req.params;
     if (sticker.validate()) {
         queries.update(id, sticker)
-        .then(result => {
+        .then(([result]) => {
             if (result) {
                 res.json(result)
             } else {

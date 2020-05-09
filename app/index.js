@@ -38,19 +38,11 @@ app.use(function(req, res, next) {
 app.use(function(err, req, res, next) {
 
   // Passing the error JSON
-  // res.status(err.status || 400);
-  console.log(err.message, err.status)
-  // res.json({
-  //   // error: req.app.get('env') === 'development' ? err : {},
-  //   message: err
-  // })
-  const statusCode = err.statusCode || 500;
-
-
-  res.status(statusCode).json({
-    type: "error",
+  res.status(err.status || 400);
+  res.json({
+    error: req.app.get('env') === 'development' ? err : {},
     message: err.message
-  });
+  })
 });
 
 module.exports = app;

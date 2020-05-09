@@ -9,7 +9,7 @@ var opts = {
 
 passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
     query.readById(jwt_payload.id)
-    .then(account => {
+    .then(([account]) => {
         if (account) {
             return done(null, account);
         } else {

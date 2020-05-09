@@ -19,12 +19,13 @@ router.post("/register", (req, res, next) => {
     const account = new Account(req.body);
     if (account.validate()) {
         queries.readByEmail(account.email)
-        .then(result => {
+        .then(([result]) => {
             if (!result) {
+                // res.json(result)
                 bcrypt.hash(account.password, 10).then(hash => {
                     account.password = hash;
                     queries.create(account)
-                    .then(response => res.json(response))
+                    .then(([response]) => res.json(response))
                     .catch(error => next(error))
                 }).catch(err => next(err))
             } else {
@@ -41,7 +42,7 @@ router.post("/login", (req, res, next) => {
     const account = new Account(req.body)
     if (account.login()) {
         queries.readByEmail(account.email)
-        .then(result => {
+        .then(([result]) => {
             if (result) {
                 bcrypt.compare(account.password, result.password)
                 .then(match => {
