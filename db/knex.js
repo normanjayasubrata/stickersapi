@@ -1,6 +1,12 @@
 console.log("norman", process.env.NODE_ENV)
 const environtment = process.env.NODE_ENV || "development";
-const config = require("../knexfile");
+console.log("environtment", environtment)
 
-module.exports = require("knex")(config[environtment]);
+const config = require("../knexfile");
+console.log("config", config)
+
+const knex = require("knex")(config[environtment]);
+console.log("knex", knex)
+
+module.exports = knex
 
